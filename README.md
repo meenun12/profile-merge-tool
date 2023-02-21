@@ -1,9 +1,10 @@
 # Profile merge tool
 
-This is a cloud run service which can merge two profiles. This service brings the
-data from data warehouse by id's provided and get the difference b/w data
-using BigQuery sql queries and python and using PubSub topic calls routes
-to another service which imports the datapoints on the platform.
+This Cloud Run service is designed to help users merge two profiles into a single profile on our platform. When a user initiates a merge request, the service retrieves data from our data warehouse using the provided IDs. It then uses a combination of BigQuery SQL queries and Python code to identify the differences between the two profiles, such as variations in industries, analytics, and funds etc.
+
+Once the service has identified the differences between the profiles, it sends a message to a PubSub topic, which triggers another service responsible for importing the data into our platform. This allows us to quickly and seamlessly update the company's profile with the new information, providing a more accurate and up-to-date representation of their skills and experience.
+
+Overall, our Cloud Run service provides an efficient and effective solution for merging profiles on our platform, while leveraging the power of BigQuery and PubSub to ensure that the process is fast, reliable, and scalable.
 
 Endpoints:
 * `/companies`: move missing data from "company to move" to "company to keep"
@@ -14,15 +15,8 @@ Endpoints:
 		"to_id": 56789
 	}
 	```
-
-
-Workflow:
-* user provides IDs of entity to keep and of entity to move
-* get data from BQ dataset `{dataset}` for each entity provided
-* get the difference in data that needs to be moved
-* send data to various db-connector endpoints to import, using PubSub
-* check db-connector logs
-
+ 
+Please check the logs on cloud run to make sure data has imported
 
 ## Development
 
@@ -104,6 +98,3 @@ gcloud pubsub subscriptions create profile-merge-sub \
   "to_id": int
 }`
 
-## Deployment
-
-Check [Deploying a Cloud Run application(service)](https://{company}.atlassian.net/wiki/spaces/DATA/pages/1299087364/Deploying+a+Cloud+Run+application+service)
