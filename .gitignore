@@ -1,0 +1,36 @@
+tmp/
+credentials/
+
+# Unit test / coverage reports
+.pytest_cache/
+
+# Environments
+.env
+.venv
+venv/
+env/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# MacOS generated files
+.DS_Store
+
+# Python cache
+__pycache__
+
+# DotEnv
+.dotenv.prod
+.dotenv.dev
+
+.idea/
+bash/
+logs/
+files/tmp/
+files/
+!files/companies.csv
+
+init_merging_tool.py
